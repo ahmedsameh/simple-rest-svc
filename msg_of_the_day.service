@@ -1,0 +1,8 @@
+[Unit]
+Description=Message of the day REST API Service
+[Service]
+User=root
+ExecStart=/usr/bin/python3.6 /bin/msg_of_the_day/msg_of_the_day.py
+Restart=always
+[Install]
+WantedBy=multi-user.target
