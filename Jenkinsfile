@@ -17,12 +17,12 @@ pipeline {
         stage('Test') {
             agent {
                 docker {
-                    image 'qnib/pytest'
+                    image 'python:3.6'
                 }
             }
             steps {
                 sh "pip install flask"
-                sh 'py.test --verbose --junit-xml test-reports/results.xml ./'
+                sh 'python --verbose --junit-xml test-reports/results.xml ./'
             }
             post {
                 always {
