@@ -21,7 +21,9 @@ pipeline {
                 }
             }
             steps {
-                sh "pip3 install flask"
+                sh 'python3 -m venv env'
+                sh 'source ./env/bin/activate' 
+                sh 'python3 -m pip install flask'
                 sh 'python3 --verbose --junit-xml test-reports/results.xml ./'
             }
             post {
