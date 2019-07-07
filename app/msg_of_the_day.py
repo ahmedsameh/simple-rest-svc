@@ -39,7 +39,7 @@ def msg_of_the_day():
 
 @app.route('/', methods=['GET'])
 def index():
-    return 'Server Works!'
+    return {'message': 'Server Works!'}
   
 @app.route('/info', methods=['GET'])
 def api_msg_of_the_day():
