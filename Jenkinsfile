@@ -21,6 +21,7 @@ pipeline {
                 }
             }
             steps {
+                sh 'mkdir env'
                 sh 'python3 -m venv env'
                 sh 'source ./env/bin/activate' 
                 sh 'python3 -m pip install flask'
