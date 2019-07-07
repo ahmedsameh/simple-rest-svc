@@ -21,7 +21,7 @@ pipeline {
                 }
             }
             steps {
-                sh "sudo pip install flask"
+                sh "pip install flask"
                 sh 'py.test --verbose --junit-xml test-reports/results.xml ./'
             }
             post {
