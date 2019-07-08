@@ -31,14 +31,13 @@ pipeline {
             }
         }
         stage('Deliver') { 
-            //if the tests are passing I will just deliver the artifacts 
-            //and as may app is .py file "I am not compiling it" I will just deliver the Docker file
             steps {
-                echo 'I am Delivering only the Dockerfile to be visible at Jenkins artifacts'
+                //testing docker file build
+                docker build --rm -f "Dockerfile" -t c7-msg-of-the-day:B${BUILD_NUMBER} .
             }
             post {
                 success {
-                    archiveArtifacts 'Dockerfile'
+                    archiveArtifacts artifacts: './Dockerfile', fingerprint: true
                 }
             }
         }
