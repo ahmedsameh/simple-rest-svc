@@ -51,7 +51,7 @@ pipeline {
             }
             steps {
                 //only testing service is up and delivery is succeding, more complicated testing can be added
-                httpRequest 'http://localhost:5000/info'
+                sh 'curl http://127.0.0.1:5000/info'
             }
         }
     }
