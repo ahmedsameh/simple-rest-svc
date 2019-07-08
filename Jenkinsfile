@@ -33,7 +33,7 @@ pipeline {
         stage('Deliver') { 
             steps {
                 //testing docker file build
-                docker build --rm -f "Dockerfile" -t c7-msg-of-the-day:B${BUILD_NUMBER} .
+                sh 'docker build --rm -f "Dockerfile" -t c7-msg-of-the-day:B${BUILD_NUMBER} .'
             }
             post {
                 success {
