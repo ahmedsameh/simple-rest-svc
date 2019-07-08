@@ -22,7 +22,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'nose2 --plugin nose2.plugins.junitxml -s tests -c unittest.cfg'
+                sh 'nose2 --plugin nose2.plugins.junitxml -s tests -c tests/unittest.cfg'
             }
             post {
                 always {
