@@ -43,11 +43,17 @@ pipeline {
             }
         }
         stage('Test Delivery') {
-            agent any
+            agent {
+                dockerfile {
+                    filename 'Dockerfile'
+                    args '-d -ti --privileged=true -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 5000:5000'
+                }
+            }
             steps {
                 //only testing service is up and delivery is succeding, more complicated testing can be added
-                sh 'docker run -d -ti --privileged=true -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 5000:5000 local/c7-msg-of-the-day'
-                sh 'curl 127.0.0.1:5000'
+                def response = httpRequest 'http://localhost:5000/info'
+                println("Status: "+response.status)
+                println("Content: "+response.content)
             }
         }
     }
