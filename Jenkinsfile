@@ -46,6 +46,7 @@ pipeline {
             agent {
                 dockerfile {
                     filename 'Dockerfile'
+                    args '--privileged=true -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 5000:5000'
                 }
             }
             steps {
