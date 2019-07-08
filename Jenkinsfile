@@ -22,7 +22,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'python3 --verbose --junit-xml test-reports/results.xml ./'
+                sh 'python3.6 --verbose --junit-xml test-reports/results.xml ./'
             }
             post {
                 always {
