@@ -38,7 +38,7 @@ pipeline {
             }
             post {
                 success {
-                    archiveArtifacts artifacts: './Dockerfile', fingerprint: true
+                    archiveArtifacts artifacts: 'Dockerfile', fingerprint: true
                 }
             }
         }
