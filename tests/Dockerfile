@@ -5,4 +5,5 @@ RUN yum install -y https://centos7.iuscommunity.org/ius-release.rpm \
 #Installing Flask
 #I didnt use python virtual env but it shoud be used
 RUN pip3.6 install Flask
+RUN pip3.6 install nose2
 

@@ -22,7 +22,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'python3.6 --verbose --junit-xml test-reports/results.xml ./'
+                sh 'nose2 --plugin nose2.plugins.junitxml -s tests -c unittest.cfg'
             }
             post {
                 always {
