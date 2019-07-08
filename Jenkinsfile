@@ -19,7 +19,6 @@ pipeline {
                 dockerfile {
                     filename 'Dockerfile'
                     dir 'tests'
-                    image 'python:3.6'
                 }
             }
             steps {
