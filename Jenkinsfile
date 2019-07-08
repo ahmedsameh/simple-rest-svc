@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent none
     options {
         skipStagesAfterUnstable()
     }
@@ -31,6 +31,7 @@ pipeline {
             }
         }
         stage('Deliver') { 
+            agent any
             steps {
                 //testing docker file build
                 sh 'docker build --rm -f "Dockerfile" -t c7-msg-of-the-day:B${BUILD_NUMBER} .'
