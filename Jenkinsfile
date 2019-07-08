@@ -51,9 +51,7 @@ pipeline {
             }
             steps {
                 //only testing service is up and delivery is succeding, more complicated testing can be added
-                def response = httpRequest 'http://localhost:5000/info'
-                println("Status: "+response.status)
-                println("Content: "+response.content)
+                httpRequest 'http://localhost:5000/info'
             }
         }
     }
