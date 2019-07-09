@@ -63,6 +63,7 @@ pipeline {
                 sh 'docker run -d -ti --privileged=true -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 5000:5000 gcr.io/${GCLOUD_PROJECT_ID}/c7-msg-of-the-day:latest'
                 sleep 30
                 sh 'curl http://127.0.0.1:5000/info'
+                sh 'docker stop $(docker ps -q --filter ancestor=gcr.io/${GCLOUD_PROJECT_ID}/c7-msg-of-the-day:latest)'
             }
         }
         stage('Publish') {
@@ -83,7 +84,6 @@ pipeline {
                     gcloud config set project ${GCLOUD_PROJECT_ID}
                     gcloud container clusters get-credentials ${GCLOUD_K8S_CLUSTER_NAME}
                     kubectl apply --force=true --all=true --record=true -f ./k8s/msg_of_the_day-deployment.yml
-                    gcloud auth revoke --all
                     """
             }
 
