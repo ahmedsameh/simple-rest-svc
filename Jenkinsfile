@@ -25,7 +25,6 @@ pipeline {
                 }
             }
             steps {
-                sh 'pip3 install prometheus_client'
                 sh 'python3 -m py_compile app/msg_of_the_day.py'
             }
         }
