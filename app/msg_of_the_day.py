@@ -2,9 +2,12 @@ import hashlib
 from datetime import datetime
 import socket
 import flask
-from flask import request, jsonify
+from flask import request, jsonify, Response
+from monitor_probe import setup_metrics
+import prometheus_client
 
 app = flask.Flask(__name__)
+setup_metrics(app)
 
 def get_current_IP(): 
     try: 
@@ -44,6 +47,10 @@ def index():
 @app.route('/info', methods=['GET'])
 def api_msg_of_the_day():
     return jsonify(msg_of_the_day())
+
+@app.route('/metrics')
+def metrics():
+    return Response(prometheus_client.generate_latest(), mimetype=str('text/plain; version=0.0.4; charset=utf-8'))
 
 if __name__ == '__main__':
     

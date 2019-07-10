@@ -18,11 +18,11 @@ RUN yum install -y https://centos7.iuscommunity.org/ius-release.rpm \
     && yum install -y python36u python36u-libs python36u-devel python36u-pip
 #Installing Flask
 #I didnt use python virtual env but it shoud be used
-RUN pip3.6 install Flask
-#Copy our python code
-COPY ./app/msg_of_the_day.py /bin/msg_of_the_day/
-#Copy our service file
-COPY msg_of_the_day.service /usr/lib/systemd/system/
+RUN pip3.6 install Flask \
+    && pip3.6 install prometheus_client
+#Copy our python code & Service file
+COPY ./app/msg_of_the_day.py /bin/msg_of_the_day/ \
+    && msg_of_the_day.service /usr/lib/systemd/system/
 #The Enable the service
 RUN /bin/systemctl enable msg_of_the_day.service
 #Exposing port 5000 to the host

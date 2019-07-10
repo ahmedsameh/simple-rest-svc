@@ -20,12 +20,13 @@ pipeline {
         }
         stage('Build') {
             agent {
-                docker {
-                    image 'python:3.6'
+                dockerfile {
+                    filename 'Dockerfile'
+                    dir 'tests'
                 }
             }
             steps {
-                sh 'python3 -m py_compile app/msg_of_the_day.py'
+                sh 'python3.6 -m py_compile app/msg_of_the_day.py'
             }
         }
         stage('Test') {
