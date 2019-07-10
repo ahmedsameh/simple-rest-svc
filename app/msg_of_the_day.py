@@ -3,7 +3,7 @@ from datetime import datetime
 import socket
 import flask
 from flask import request, jsonify, Response
-from monitor_probe import setup_metrics
+from app.monitor_probe import setup_metrics
 import prometheus_client
 
 app = flask.Flask(__name__)
