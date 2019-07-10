@@ -1,2 +1,5 @@
 *.pyc
 .noseids
+/packer/build/
+/packer/packer_cache
+ansible/playbook.retry

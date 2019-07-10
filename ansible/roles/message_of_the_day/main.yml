@@ -1,0 +1,24 @@
+---
+- name: install packages
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - https://centos7.iuscommunity.org/ius-release.rpm 
+    - python36u
+    - python36u-libs
+    - python36u-devel
+    - python36u-pip
+- name: install flask with pip
+  pip3.6: name=flask
+
+- name: Copy our python flask app
+  copy:
+    src: msg_of_the_day.py
+    dest: /bin/msg_of_the_day/msg_of_the_day.py
+
+- name: Install msg_of_the_day.service systemd service
+  template: src=msg_of_the_day.j2 dest=/usr/lib/systemd/system/msg_of_the_day.service
+
+- name: start msg_of_the_day.service
+  systemd: state=started name=msg_of_the_day daemon_reload=yes

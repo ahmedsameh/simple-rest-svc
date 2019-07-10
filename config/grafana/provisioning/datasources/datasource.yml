@@ -14,11 +14,11 @@ datasources:
   # <string, required> datasource type. Required
   type: prometheus
   # <string, required> access mode. direct or proxy. Required
-  access: proxy
+  access: direct
   # <int> org id. will default to orgId 1 if not specified
   orgId: 1
   # <string> url
-  url: http://192.168.0.144:9090
+  url: http://127.0.0.1:9090
   # <string> database password, if used
   password:
   # <string> database user, if used
@@ -26,13 +26,13 @@ datasources:
   # <string> database name, if used
   database:
   # <bool> enable/disable basic auth
-  basicAuth: true
+  #basicAuth: true
   # <string> basic auth username
-  basicAuthUser: admin
+  #basicAuthUser: admin
   # <string> basic auth password
-  basicAuthPassword: admin
+  #basicAuthPassword: admin
   # <bool> enable/disable with credentials headers
-  withCredentials:
+  #withCredentials:
   # <bool> mark as default datasource. Max one per org
   isDefault: true
   # <map> fields that will be converted to json and stored in json_data
