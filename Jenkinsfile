@@ -20,13 +20,13 @@ pipeline {
         }
         stage('Build') {
             agent {
-                dockerfile {
-                    filename 'Dockerfile'
-                    dir 'tests'
+                docker {
+                    image 'python:3.6'
                 }
             }
             steps {
-                sh 'python3.6 -m py_compile app/msg_of_the_day.py'
+                sh 'pip3 install prometheus_client'
+                sh 'python3 -m py_compile app/msg_of_the_day.py'
             }
         }
         stage('Test') {
