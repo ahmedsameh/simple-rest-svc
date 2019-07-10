@@ -1,17 +1,14 @@
 # A simple Rest API systemd service with full CI/CD/CD through packer, Ansible, Docker, Kubernetes, Jenkins, Prometheus & Grafana
 
-Simple Rest API using python and Flask, the API is initialized using systemd service and it has the following information
-a. Path: '/info'
-b. Method: GET
-c. Format: JSON
+A simple Rest API using python and Flask, the API is initialized using systemd service and provides the following information on `/info`:
 
 ```json
 {"date":"", "time":"", "ip":"", "hash":""}
 ```
 
-The service is used through a systemd service, various deployment options are available through Packer, Docker, Ansible and Over the Google cloud using GKE, the whole project is following the CI/CD/CD principals using Jenkins pipeline, also Monitoring is available therough Prometheus & Grafana.
+The API is used through a systemd service, various deployment options are available through Packer, Docker, Ansible and Google Cloud using GKE, the whole project is following the CI/CD/CD principals using Jenkins pipeline, also Monitoring is available through Prometheus & Grafana.
 
-## Prerequistes
+## Perquisites
 
 Please insure that you have installed all the following components locally:
 
@@ -21,7 +18,7 @@ Please insure that you have installed all the following components locally:
 * Docker
 * Jenkins with Blue Ocean
 * Kubectl
-* Gcloud SDK
+* GCloud SDK
 
 You will need to create GCloud Project and service account key for it.
 
@@ -29,39 +26,39 @@ You will need to create GCloud Project and service account key for it.
 
 ### Build and Run the whole project
 
-* Create a GCloud cluster through your convinent way, and edit `project.properies` to include the cluster name.
-* Change the project variables at `project.properies` file to yours.
 * Fork the project.
+* Create a GCloud cluster through your convenient way, and edit `project.properties` to include the cluster name.
+* Change the project variables at `project.properties` file to yours.
 * Create a new jenkins Blue Ocean pipeline.
 * Link the pipeline to your github account.
 * Run the pipeline
 
 The pipeline has the following stages:
 
-1. init - initialize enviorment variables from `project.propperties`.
+1. init - Initializes environment variables from `project.properties`.
 
 2. Build - Build the source code.
 
-3. Test - Test the source code with tests avaliable in `/tests` completeing the CI "Continous Integration" stage.
+3. Test - Test the source code with tests available in `/tests` completing the CI "Continuos Integration" stage.
 
 4. Deliver - Build Docker image with the latest code.
 
-5. Test Delivery - Test the docker image, the current implemented test is very simple, more compicated tests can be added.
+5. Test Delivery - Test Docker image, the current implemented tests is very simple, more complicated tests can be added.
 
-6. Publish - Publish the image to google gcr Completing the CD "Continous Delivery" stage.
+6. Publish - Publish the image to google gcr Completing the CD "Continuos Delivery" stage.
 
 7. Deploy - Deploy the whole project in K8S cluster.
 
 ## Configure Monitoring and Dashboards
 
-* Note the Ingress service external IP address after the installation you can use the follwoing bash commands.
+* Note the Ingress service external IP address and port after the installation; you can use the follwoing bash commands.
 
 ```bash
 gcloud container clusters get-credentials YOUR_CLUSTER_NAME
 kubectl get ingress
 ```
 
-* Change the IP address at the last line at `config/prometheus/prometheus.yml` to your ingress IP address and port if necessary.
+* Change the IP address and port at the last line at `config/prometheus/prometheus.yml` to your ingress IP address and port.
 * Run the monitoring environment using the following bash command
 
 ```bash
@@ -75,9 +72,11 @@ Username: admin
 Password: admin
 ```
 
+* Sometimes GCLoud ingress takes a long time to activate.
+
 ## Image only Usage
 
-### Build the image using packer
+### Build image using packer
 
 ```bash
 cd packer
@@ -101,5 +100,5 @@ The service will be up at <http://localhost:5000/info>
 
 ## Interesting future work
 
-* Prepare K8S depyment for Prometheus and Grafana to consolidate the project.
+* Prepare K8S deployment for Prometheus and Grafana to consolidate the project.
 * Add more unit tests and integration tests.

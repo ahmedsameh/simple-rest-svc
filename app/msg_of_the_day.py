@@ -8,14 +8,16 @@ from prometheus_client import Counter, Histogram
 import time
 import sys
 
+#Counter of Prometheus client 
 REQUEST_COUNT = Counter(
     'request_count', 'App Request Count',
     ['app_name', 'method', 'endpoint', 'http_status']
 )
+#Histogram of Prometheus Client
 REQUEST_LATENCY = Histogram('request_latency_seconds', 'Request latency',
     ['app_name', 'endpoint']
 )
-
+#Function to be used for the metrics
 def start_timer():
     request.start_time = time.time()
 
@@ -37,6 +39,7 @@ def setup_metrics(app):
 app = flask.Flask(__name__)
 setup_metrics(app)
 
+# Get IP Address of local machine
 def get_current_IP(): 
     try: 
         host_name = socket.gethostname() 
@@ -45,28 +48,32 @@ def get_current_IP():
     except: 
         return "Unable to get Hostname and IP"
 
+#hash date and return hexdecimal
 def hashDate(currentDate):
-
-    hdate = hashlib.md5()
-    hdate.update(str(currentDate).encode('utf-8'))    
-    return str(hdate.hexdigest())
+    try:
+        hdate = hashlib.md5()
+        hdate.update(str(currentDate).encode('utf-8'))    
+        return str(hdate.hexdigest())
+    except:
+        return "Unable to Hash Date"
 
 def msg_of_the_day():
-    
-    now = datetime.now()
-    currentDate = now.strftime("%d/%m/%Y")
-    currentTime = now.strftime("%H:%M:%S")
-    currentIP = get_current_IP()
-    currentDateHash = hashDate(currentDate)
+    try:
+        now = datetime.now()
+        currentDate = now.strftime("%d/%m/%Y")
+        currentTime = now.strftime("%H:%M:%S")
+        currentIP = get_current_IP()
+        currentDateHash = hashDate(currentDate)
 
-    msg=[
-        {'date' : currentDate,
-        'time' : currentTime,
-        'ip' : currentIP,
-        'hash' : currentDateHash}
-    ]
-
-    return msg
+        msg=[
+            {'date' : currentDate,
+            'time' : currentTime,
+            'ip' : currentIP,
+            'hash' : currentDateHash}
+        ]
+        return msg
+    except:
+        return "Error constructing msg"
 
 @app.route('/', methods=['GET'])
 def index():

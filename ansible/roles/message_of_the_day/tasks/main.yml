@@ -1,0 +1,31 @@
+---
+- name: Installation de ius-release.rpm pour Python3.6
+  yum:
+    name: https://centos7.iuscommunity.org/ius-release.rpm
+    state: installed
+  become: true
+- name: Install packages   
+  yum: 
+    name={{ item }} state=installed
+  become: true
+  with_items:
+    - python36u
+    - python36u-libs
+    - python36u-devel
+    - python36u-pip
+- name: install flask with pip
+  raw: pip3.6 install Flask
+- name: install prometheus python client
+  raw: pip3.6 install prometheus_client
+- name: Create remote directory
+  file: path=/bin/msg_of_the_day state=directory
+- name: Copy our python flask app
+  copy:
+    src: ../app/msg_of_the_day.py
+    dest: /bin/msg_of_the_day/msg_of_the_day.py
+
+- name: Install msg_of_the_day.service systemd service
+  template: src=msg_of_the_day.j2 dest=/usr/lib/systemd/system/msg_of_the_day.service
+
+- name: start msg_of_the_day.service
+  systemd: state=started name=msg_of_the_day enabled=yes daemon_reload=yes
