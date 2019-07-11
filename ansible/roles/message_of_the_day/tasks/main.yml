@@ -1,5 +1,5 @@
 ---
-- name: Installation de ius-release.rpm pour Python3.6
+- name: Installation of ius-release.rpm for Python3.6
   yum:
     name: https://centos7.iuscommunity.org/ius-release.rpm
     state: installed

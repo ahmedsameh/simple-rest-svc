@@ -98,6 +98,14 @@ docker run -ti --privileged=true -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 5000:500
 
 The service will be up at <http://localhost:5000/info>
 
+## Google Cloud GKE cleanup
+
+You can use the following shell script to clean the installation at GKE.
+
+```bash
+./GCLOUD_K8S_Cleanup.sh
+```
+
 ## Interesting future work
 
 * Prepare K8S deployment for Prometheus and Grafana to consolidate the project.
